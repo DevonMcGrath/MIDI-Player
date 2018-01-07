@@ -140,6 +140,9 @@ function updatePlayButtons(playing) {
  */
 function setupMIDI(data) {
 
+	// Make sure nothing is already playing
+	if (song) {song.stop();}
+	
 	// Get the MIDI file data in a more usable format
 	var file = parseData(data);
 	
@@ -438,7 +441,7 @@ function processTrack(data, header) {
 			var d = String.fromCharCode(lastStatus) + data.substr(time[1] + 1, jump);
 			var e = new MIDIEvent(time[0], d);
 			track.events.push(e);
-			jump ++;
+			jump += time[1] + 1;
 			if (lastStatus >= 0x90 && lastStatus <= 0x9F) { // note on
 				if (e.data.charCodeAt(2) != 0) { // if the velocity is zero, it is a note off
 					track.noteCount ++;
