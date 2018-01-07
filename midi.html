@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>MIDI Player</title>
+		<meta name="author" content="Devon McGrath" />
+		<meta name="google-site-verification" content="r24r9eOir3Gv0fBGk3J-3yEUNqwMDD4-K4OqhfexhkA" />
+		<meta name="robots" content="noindex" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<link rel="shortcut icon" href="https://devonmcgrath.me/favicon.ico" />
+		<link rel="stylesheet" href="midi.css" />
+		<style id="song-styles"></style>
+	</head>
+	<body onload="init();" onresize="pageResize();">
+		<!-- the screen to display the notes and keyboard -->
+		<div class="screen">
+
+			<div id="panel">
+				<button onclick="setControlsVisible(true);">All Controls</button>
+				<button onclick="updatePlay(this.innerHTML == 'Play', false);" id="play-btn1">Play</button>
+				<div class="slider" style="margin: 0 8px;" onclick="newSliderPos(event, this);">
+					<div class="slider-knob" id="slider1"></div>
+				</div>
+			</div>
+
+			<div class="notes" id="tracks"></div>
+			<canvas id="canvas-notes"></canvas>
+
+			<ul class="keys">
+				<li class="w-key" id="k21" /><!-- A -->
+				<li class="b-key" id="k22" />
+				<li class="w-key" id="k23" />
+				<li class="w-key" id="k24" title="C0" /><!-- C -->
+				<li class="b-key" id="k25" />
+				<li class="w-key" id="k26" />
+				<li class="b-key" id="k27" />
+				<li class="w-key" id="k28" />
+				<li class="w-key" id="k29" />
+				<li class="b-key" id="k30" />
+				<li class="w-key" id="k31" />
+				<li class="b-key" id="k32" />
+				<li class="w-key" id="k33" />
+				<li class="b-key" id="k34" />
+				<li class="w-key" id="k35" />
+				<li class="w-key" id="k36" title="C1" /><!-- C -->
+				<li class="b-key" id="k37" />
+				<li class="w-key" id="k38" />
+				<li class="b-key" id="k39" />
+				<li class="w-key" id="k40" />
+				<li class="w-key" id="k41" />
+				<li class="b-key" id="k42" />
+				<li class="w-key" id="k43" />
+				<li class="b-key" id="k44" />
+				<li class="w-key" id="k45" />
+				<li class="b-key" id="k46" />
+				<li class="w-key" id="k47" />
+				<li class="w-key" id="k48" title="C2" /><!-- C -->
+				<li class="b-key" id="k49" />
+				<li class="w-key" id="k50" />
+				<li class="b-key" id="k51" />
+				<li class="w-key" id="k52" />
+				<li class="w-key" id="k53" />
+				<li class="b-key" id="k54" />
+				<li class="w-key" id="k55" />
+				<li class="b-key" id="k56" />
+				<li class="w-key" id="k57" />
+				<li class="b-key" id="k58" />
+				<li class="w-key" id="k59" />
+				<li class="w-key c3" id="k60" title="C3" /><!-- C -->
+				<li class="b-key" id="k61" />
+				<li class="w-key" id="k62" />
+				<li class="b-key" id="k63" />
+				<li class="w-key" id="k64" />
+				<li class="w-key" id="k65" />
+				<li class="b-key" id="k66" />
+				<li class="w-key" id="k67" />
+				<li class="b-key" id="k68" />
+				<li class="w-key" id="k69" />
+				<li class="b-key" id="k70" />
+				<li class="w-key" id="k71" />
+				<li class="w-key" id="k72" title="C4" /><!-- C -->
+				<li class="b-key" id="k73" />
+				<li class="w-key" id="k74" />
+				<li class="b-key" id="k75" />
+				<li class="w-key" id="k76" />
+				<li class="w-key" id="k77" />
+				<li class="b-key" id="k78" />
+				<li class="w-key" id="k79" />
+				<li class="b-key" id="k80" />
+				<li class="w-key" id="k81" />
+				<li class="b-key" id="k82" />
+				<li class="w-key" id="k83" />
+				<li class="w-key" id="k84" title="C5" /><!-- C -->
+				<li class="b-key" id="k85" />
+				<li class="w-key" id="k86" />
+				<li class="b-key" id="k87" />
+				<li class="w-key" id="k88" />
+				<li class="w-key" id="k89" />
+				<li class="b-key" id="k90" />
+				<li class="w-key" id="k91" />
+				<li class="b-key" id="k92" />
+				<li class="w-key" id="k93" />
+				<li class="b-key" id="k94" />
+				<li class="w-key" id="k95" />
+				<li class="w-key" id="k96" title="C6" /><!-- C -->
+				<li class="b-key" id="k97" />
+				<li class="w-key" id="k98" />
+				<li class="b-key" id="k99" />
+				<li class="w-key" id="k100" />
+				<li class="w-key" id="k101" />
+				<li class="b-key" id="k102" />
+				<li class="w-key" id="k103" />
+				<li class="b-key" id="k104" />
+				<li class="w-key" id="k105" />
+				<li class="b-key" id="k106" />
+				<li class="w-key" id="k107" />
+				<li class="w-key" id="k108" title="C7" /><!-- C -->
+			</ul>
+		</div><!-- end of screen -->
+		
+		<!-- the screen with all the controls -->
+		<div id="control">
+			<h1>MIDI Player</h1>
+			<div id="about"><a href="https://github.com/DevonMcGrath" target="_blank">GitHub</a></div>
+
+			<noscript class="err">
+				<p>JavaScript is disabled, please enable it to use this application.</p>
+			</noscript>
+			<div class="err" id="browser-errors"></div>
+			<div class="err" id="file-errors"></div>
+
+			<h3>MIDI File</h3>
+			<input type="file" onchange="readText(this, setupMIDI);" />
+
+			<h3>Playback Controls</h3>
+			<table>
+				<tr>
+					<td class="center"><button onclick="updatePlay(this.innerHTML == 'Play', true);" id="play-btn2">Play</button></td>
+					<td class="center"><button onclick="resetSong();">Restart</button></td>
+				</tr>
+				<tr>
+					<td>Play Speed:</td>
+					<td><select onchange="setSpeed(this.value);" id="set-speed">
+						<option value="0.1">0.1</option>
+						<option value="0.25">0.25</option>
+						<option value="0.5">0.5</option>
+						<option value="1" selected>1.0 (default)</option>
+						<option value="1.5">1.5</option>
+						<option value="2">2</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Length:</td>
+					<td id="song-length"></td>
+				</tr>
+			</table>
+			<div class="slider" onclick="newSliderPos(event, this);">
+				<div class="slider-knob" id="slider2"></div>
+			</div>
+
+			<h3>Tracks</h3>
+			<div id="tracks-available">
+				<p>Please load a MIDI file.</p>
+			</div>
+
+			<div id="close" onclick="setControlsVisible(false);">X</div>
+		</div>
+		
+		<!-- MIDI File Scripts -->
+		<script src="midi.js"></script>
+	</body>
+</html>

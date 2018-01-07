@@ -1,0 +1,189 @@
+/* Name: midi.css
+ * Author: Devon McGrath
+ * Description: This CSS file is used for all the main styles in the MIDI project.
+ */
+
+body {font-family: Arial; margin: 0; padding: 0;}
+button {cursor: pointer;}
+h1 {text-align: center;}
+h1, h3 {color: white; text-shadow: 0 0 3px black;}
+a {color: inherit;}
+
+.center {text-align: center;}
+
+noscript, .err {
+	background: #FFDFDF;
+	border-left: 7px solid red;
+	border-radius: 3px;
+	padding: 8px;
+	margin: 15px 0;
+	font-weight: bold;
+	color: red;
+}
+
+.err {display: none;}
+
+#canvas-notes {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: black;
+	display: none;
+}
+
+#about {
+	text-align: center;
+	font-style: italic;
+}
+
+.track-info {
+	background: #CFCFCF;
+	color: black;
+	box-shadow: inset 0 0 5px 3px #BFBFCF;
+	padding: 8px;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 10px auto;
+	transition: box-shadow 1s;
+}
+
+.track-info:hover {
+	box-shadow: inset 0 0 5px 3px #4F4F5F;
+	transition: box-shadow 1s;
+}
+
+.screen {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background: black;
+	color: white;
+	z-index: 1;
+	padding: 8px;
+}
+
+/* div for the control elements (file, tracks, etc.) */
+div#control {
+	position: fixed;
+	padding: 15px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000040;
+	color: white;
+	z-index: 10;
+	box-shadow: inset 0 0 7px 3px grey;
+	box-sizing: border-box;
+	overflow: auto;
+}
+#close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20px;
+	height: 20px;
+	padding: 5px;
+	text-align: center;
+	background: red;
+	cursor: pointer;
+	border-radius: 0 0 0 7px;
+}
+
+div.slider {
+	background: #00008F;
+	width: 200px;
+	height: 8px;
+	border-radius: 3px;
+	cursor: pointer;
+	display: inline-block;
+	box-shadow: inset 0 0 1px 2px rgba(255,255,255,0.3);
+}
+
+div.slider-knob {
+	background: white;
+	border-radius: 100%;
+	width: 8px;
+	height: 8px;
+	position: relative;
+	transform: translateX(-4px);
+	left: 50%;
+}
+
+/* div for a small control panel */
+div#panel {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	background: #CFCFFF;
+	background: linear-gradient(#CFCFFF, #9F9FFF);
+	color: black;
+	padding: 5px;
+	box-sizing: border-box;
+	z-index: 9;
+}
+
+.keys {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	background: blue;
+	width: 100%;
+	height: 150px;
+	max-height: 35%;
+	padding: 0;
+}
+
+.notes {
+	position: absolute;
+	left: 0;
+	bottom: 150px;
+	padding: 0;
+	width: 100%;
+	height: 1000px;
+	overflow: hidden;
+	background: rgba(0,0,255,0.4);
+}
+
+.note {
+	position: absolute;
+	background: white;
+	border-radius: 3px;
+	box-shadow: 0 0 5px 2px rgba(0,0,0,0.3);
+}
+
+.w1, .w-key {width: 1.9%;}
+
+.w2, .b-key {width: 0.95%; transform: translateX(-50%);}
+
+.w-key {
+	display: inline-block;
+	height: 90%;
+	margin: 0;
+	background: white;
+	background: radial-gradient(white 80%, grey);
+	box-shadow: 0 0 5px black;
+}
+
+.b-key {
+	display: inline-block;
+	position: absolute;
+	height: 67%;
+	margin: 0;
+	background: black;
+	background: radial-gradient(black 80%, grey);
+	box-shadow: 0 0 5px rgba(0,0,0,0.4);
+}
+
+.c3 {background: radial-gradient(#DFFFDF 80%, grey);}
+
+.active-key-w {background: #CFCFFF; background: radial-gradient(#CFCFFF 80%, grey);}
+.active-key-b {background: #000080; background: radial-gradient(#000080 80%, grey);}
+.w-key:hover {background: #CFCFFF; background: radial-gradient(#CFCFFF 80%, grey);}
+.b-key:hover {background: #000080; background: radial-gradient(#000080 80%, grey);}
