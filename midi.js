@@ -7,7 +7,8 @@
 var COLOURS = ["#00FF00", "#0000FF", "#FF00FF", "#FFFF00", // track note colours
 	"#FFAF00", "#00FFFF", "#FF0000", "#AF0000",
 	"#AF00AF", "#00AFAF", "#00AF00", "#0000AF",
-	"#AFAF00", "#AFFF00", "#AF00FF", "white"];
+	"#AFAF00", "#AFFF00", "#AF00FF", "#FFCFCF",
+	"#CFFFCF", "CFCFFF", "#5F5F00", "#005F5F"];
 var reader = null; // file reader
 var tracksDiv = document.getElementById('tracks'); // div for the notes
 var noteCanvas = document.getElementById('canvas-notes'); // canvas for drawing notes
@@ -15,6 +16,7 @@ var slider1 = document.getElementById('slider1'); // slider for time
 var slider2 = document.getElementById('slider2'); // slider for time
 var song = null; // object to control song properties
 var page = null; // size of the page
+var keys = [];
 var PIXELS_PER_SECOND = 110.0; // the number of pixels per second to display for the song and notes
 var MIDI_EVENT = 1; // MIDI event identifier
 var SYSEX_EVENT = 2; // System Exclusive event identifier
@@ -40,6 +42,12 @@ function init() {
 	}
 	
 	pageResize();
+	
+	// Get all the keys
+	for (var i = 21; i < 109; i ++) {
+		var k = {"object": document.getElementById('k'+i), "style": ""};
+		keys.push(k);
+	}
 }
 
 /** Handles the page being resized. */
@@ -261,7 +269,7 @@ function parseData(data) {
 	// Update the track colours
 	for (var i = 0; i < file.noteTracks.length; i ++) {
 		var colour = COLOURS[i];
-		file.noteTracks[i].colour = colour? colour : 'white';
+		file.noteTracks[i].colour = colour? colour : '#CFCFCF';
 	}
 	
 	// Get the tempo map and length
@@ -786,8 +794,14 @@ function Song(file) {
 	if (isCanvasSupported()) {
 		this.updatePos = function() {
 			
+			// Reset colours
+			for (var i = keys.length - 1; i >= 0; i --) {
+				keys[i].style = '';
+			}
+			
 			// Calculate the start and end second being displayed in the song
 			var start = this.second, end = start + page.height / PIXELS_PER_SECOND;
+			var ks = 135 / PIXELS_PER_SECOND;
 			
 			// Draw each of the tracks one by one
 			var g = noteCanvas.getContext('2d'), noteWidth = page.width / 52.0;
@@ -804,9 +818,16 @@ function Song(file) {
 					var note = t.notes[j];
 					if (note.endSec < start) {
 						continue;
-					} else if (note.startSec - this.startEndPadding > end) {
-						break;
+					} else if (note.startSec - 10 > end) {
+						continue;
 					} else if (j < first) {first = j;}
+					
+					// Determine what colour the key should be
+					if (note.startSec <= start + ks && note.endSec >= start + ks) {
+						keys[note.key - 21].style = 'background: ' + t.colour + ';';
+					}
+					
+					// Draw the note if it's a white key
 					if (!note.isWhiteKey()) {continue;}
 					var x = page.width * note.getWhiteKeyNum() / 52.0;
 					var y = (end - note.endSec) * PIXELS_PER_SECOND;
@@ -817,14 +838,19 @@ function Song(file) {
 					var note = t.notes[j];
 					if (note.endSec < start) {
 						continue;
-					} else if (note.startSec - this.startEndPadding > end) {
-						break;
+					} else if (note.startSec - 10 > end) {
+						continue;
 					} else if (note.isWhiteKey()) {continue;}
 					var x = (page.width * note.getWhiteKeyNum() / 52.0) - noteWidth / 4;
 					var y = (end - note.endSec) * PIXELS_PER_SECOND;
 					g.fillRect(x, y, noteWidth / 2, PIXELS_PER_SECOND * (note.endSec - note.startSec));
 					g.strokeRect(x, y, noteWidth / 2, PIXELS_PER_SECOND * (note.endSec - note.startSec));
 				}
+			}
+			
+			// Set the key colours
+			for (var i = keys.length - 1; i >= 0; i --) {
+				keys[i].object.setAttribute('style', keys[i].style);
 			}
 		}
 	} else { // no canvas support

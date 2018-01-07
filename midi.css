@@ -33,10 +33,7 @@ noscript, .err {
 	display: none;
 }
 
-#about {
-	text-align: center;
-	font-style: italic;
-}
+#about {text-align: center;}
 
 .track-info {
 	background: #CFCFCF;
@@ -74,7 +71,8 @@ div#control {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: #000040;
+	background: black;
+	background: linear-gradient(black, #000030);
 	color: white;
 	z-index: 10;
 	box-shadow: inset 0 0 7px 3px grey;
@@ -136,7 +134,6 @@ div#panel {
 	background: blue;
 	width: 100%;
 	height: 150px;
-	max-height: 35%;
 	padding: 0;
 }
 
@@ -183,7 +180,5 @@ div#panel {
 
 .c3 {background: radial-gradient(#DFFFDF 80%, grey);}
 
-.active-key-w {background: #CFCFFF; background: radial-gradient(#CFCFFF 80%, grey);}
-.active-key-b {background: #000080; background: radial-gradient(#000080 80%, grey);}
 .w-key:hover {background: #CFCFFF; background: radial-gradient(#CFCFFF 80%, grey);}
 .b-key:hover {background: #000080; background: radial-gradient(#000080 80%, grey);}
