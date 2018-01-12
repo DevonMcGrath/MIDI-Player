@@ -20,6 +20,7 @@ noscript, .err {
 	font-weight: bold;
 	color: red;
 }
+noscript {width: 100%; display: block; box-sizing: border-box;}
 
 .err {display: none;}
 
